@@ -1,0 +1,36 @@
+<script>
+/**
+* StringToBumber
+*/
+
+function convertStringToNumber(string, x = 10) {
+    let chars = string.split('');
+    let number = 0;
+    let i = 0;
+    while (i < chars.length && chars[i] != '.' && chars[i] != 'e' && chars[i] != 'E') {
+        number = number * x;
+        number += chars[i].codePointAt(0) - '0'.codePointAt(0);
+        i++;
+    }
+    if (chars[i] === '.')
+        i++;
+    let fraction = 1;
+    while (i < chars.length && chars[i] != 'e' && chars[i] != 'E') {
+        fraction = fraction / x;
+        number += (chars[i].codePointAt(0) - '0'.codePointAt(0)) * fraction;
+        i++;
+    }
+    if (chars[i] === 'e' || chars[i] === 'E')
+        i++;
+    let exponent = '';
+    while (i < chars.length) {
+        exponent += chars[i];
+        i++
+    }
+    number = number * x ** (exponent.codePointAt(0) - '0'.codePointAt(0));
+    return number;
+}
+
+console.log(convertStringToNumber('100.03e2'));
+</script>
+  

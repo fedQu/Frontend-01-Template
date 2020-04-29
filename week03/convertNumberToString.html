@@ -1,0 +1,35 @@
+<script type="text/javascript">
+    /**
+    * NumberToString 
+    */
+
+    const Max_float = 20;
+
+    function convertNumberToString(number, radix = 10) {
+        const digits = '0123456789ABCDEF';
+        let integer = Math.floor(number);
+        let fraction = number - integer;
+        let string = integer === 0 ? '0' : '';
+
+        while (integer > 0) {
+            string = digits[integer % radix] + string;
+            integer = Math.floor(integer / radix);
+        }
+
+        if (fraction === 0) return string;
+
+        string += '.';
+        let length = 0;
+        while (fraction !== 0 && length < Max_float) {
+            fraction *= radix;
+            string = string + digits[Math.floor(fraction)];
+            fraction = fraction - Math.floor(fraction);
+            length ++;
+        }
+
+        return string;
+    }
+
+    console.log(convertNumberToString(103.2334))
+
+</script>
